@@ -1,0 +1,23 @@
+version: '3.8'
+
+services: 
+  mongo:
+    image: mongo
+    restart: always
+    ports: 
+      - "27017:27017"
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: VeryStrongPassword1
+
+  todo-service:
+    depends_on: 
+      - mongo
+    restart: always
+    image: todo-service
+    ports:
+      - "3000:3000"
+    environment: 
+      STAGE: production
+      MONGO_NAME: admin
+      MONGO_PASSWORD: VeryStrongPassword1
